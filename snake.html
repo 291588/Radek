@@ -1,6 +1,11 @@
 <html>
 <head>
 <style>
+div{border : solid 1px black;
+width: 6.5%;
+height: 6.5%;
+display:inline-block;
+text-align: center; }
 </style>
 </head>
 <body>
@@ -8,14 +13,35 @@
 
 
 <script>
-var x = document.createElement('div');
+/*var x = document.createElement('div');
 x.style.color = "black";
 x.style.width = "10 px";
 x.style.height = "10 px";
 x.style.border = " 2px solid black";
-document.body.appendChild(x);
+document.body.appendChild(x);*/
+
+var y = 98;
+var x = 1;
+var d =[];
+for(x=1;x<196;x++){
+d[x] = document.createElement('div');
+
+document.body.appendChild(d[x]);
+}
+d[y].style.background = "black";
 
 
+document.body.addEventListener('keypress',function(){
+switch(){
+case'a':
+d[y].style.background = "white";
+d[y-1].style.background = "black";
+break;
+case 'd':
+d[y].style.background = "white";
+d[y+1].style.background = "black";
+break;
+});
 </script>
 </body>
 
