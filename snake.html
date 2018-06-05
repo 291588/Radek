@@ -9,10 +9,79 @@ text-align: center; }
 </style>
 </head>
 <body>
-
+<!-- <button>Start!</button> -->
+<canvas width="600px" height="600px" style="border:1px solid #000000;">
+</canvas>
 
 
 <script>
+let a = document.querySelector('button');
+let los = Math.floor(Math.random()*(607));
+
+let x = document.querySelector('canvas');
+let ctx = x.getContext('2d');
+ctx.fillRect(250,250,50,50);
+ctx.stroke();
+
+
+function Rect(x,y,width,height,color,vx,vy)
+{
+this.x=x;
+this.y=y;
+this.width=width;
+this.height=height;	
+this.color=color;
+this.vy=vy;
+this.vx=vx;
+}
+
+Rect.prototype.rysuj = function()
+{
+ctx.beginPath();
+ctx.rect(this.x,this.y,this.width,this.height);
+ctx.fillStyle="black";
+ctx.fill();
+ctx.stroke();
+}
+
+document.body.addEventListener('keydown',function(e){
+
+switch(e.key){
+
+case 'ArrowUp':
+this.y+=this.vy
+
+
+break;
+
+case 'ArrowDown':
+this.y=-this.vy
+if(this.y<= 0)
+break;
+
+case 'ArrowRight':
+this.x+=this.vx
+if(this.x<=0)
+break;
+
+case 'ArrowLeft':
+this.x=-this.vx
+if(this.x<=0)
+break;
+
+
+}
+
+
+
+
+
+
+});
+
+
+
+
 /*var x = document.createElement('div');
 x.style.color = "black";
 x.style.width = "10 px";
@@ -20,7 +89,7 @@ x.style.height = "10 px";
 x.style.border = " 2px solid black";
 document.body.appendChild(x);*/
 
-var y = 98;
+/*var y = 98;
 var x = 1;
 var d =[];
 for(x=1;x<196;x++){
@@ -41,7 +110,7 @@ case 'd':
 d[y].style.background = "white";
 d[y+1].style.background = "black";
 break;
-});
+});*/
 </script>
 </body>
 
