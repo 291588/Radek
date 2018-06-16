@@ -1,10 +1,62 @@
-window.onload = function(){
-"use strict";
+
+
+
+let wybor;	
+
+let button1 = document.createElement("button");
+let button2 = document.createElement("button");
+let button3 = document.createElement("button");
+button1.textContent = "Plaszczyzna";
+button2.textContent = "Plaszczyzna + jedzOgon";
+button3.textContent = "Torus";
+document.body.appendChild(button1);
+document.body.appendChild(button2);
+document.body.appendChild(button3);
+
+document.body.addEventListener("click",function(e){
+
+if(e.target === button1){	
+wybor = 1;	
+button1.style.visibility = "hidden";
+button2.style.visibility = "hidden";
+button3.style.visibility = "hidden";
+Gra(1);		
+}	
+	
+else if(e.target === button2){
+wybor = 2;	
+button1.style.visibility = "hidden";
+button2.style.visibility = "hidden";
+button3.style.visibility = "hidden";
+Gra(2);			
+	
+}	
+	
+else if(e.target === button3){
+wybor = 3;
+button1.style.visibility = "hidden";
+button2.style.visibility = "hidden";
+button3.style.visibility = "hidden";
+Gra(3);		
+
+
+}		
+});
+
+
+function Gra(wybor){
+
 
 let i;
+let j;
 
-const cvs = document.getElementById("canvas");
-const ctx = cvs.getContext("2d");
+let cvs = document.createElement("CANVAS");
+document.body.appendChild(cvs);
+let ctx = cvs.getContext("2d");
+
+cvs.width = 600;
+cvs.height = 600;
+cvs.style.border = "1px solid #000000";
 
 const cvsW = cvs.width;
 const cvsH = cvs.height;
@@ -15,8 +67,6 @@ const snakeH = 24;
 let wynik = 0;
 
 let kierunek;
-
-
 
 
 function sKierunek(e){
@@ -46,7 +96,6 @@ ctx.strokeRect(x*snakeW,y*snakeH,snakeW,snakeH);
 
 
 
-
 let snake =[];
 
 
@@ -58,8 +107,8 @@ y:12
 
 
 let food = {
-x: Math.round(Math.random()*((cvsW/snakeW-1)+1)),
-y: Math.round(Math.random()*((cvsH/snakeH-1)+1))
+x: Math.round(Math.random()*((cvsW/snakeW-2)+2)),
+y: Math.round(Math.random()*((cvsH/snakeH-2)+2))
 };
 
 function rysFood(x,y){
@@ -83,6 +132,20 @@ return false;
 }
 
 
+function jedzOgon(x,y,array){
+for(i = 1; i< array.length; i += 1){
+if( x === array[i].x && y === array[i].y){
+for( j=0; j< (array.length-(array.length-i)); j+=1 ){
+array.pop();
+wynik--;		
+}		
+}		
+}		
+}
+
+
+
+
 function rysWynik(x){
 ctx.fillStyle = "black";
 ctx.font = "30px Times New Roman";
@@ -104,17 +167,57 @@ let snakeX = snake[0].x;
 let snakeY = snake[0].y;
 
 
+function Torus(){
+	
+if(snakeX < 0){
+snakeX = (cvsW/snakeW);	
+}	
+else if(snakeX >= cvsW/snakeW ){
+snakeX = -1;		
+}	
+else if(snakeY < 0){
+snakeY = (cvsH/snakeH);	
+} 	
+else if(snakeY >= cvsH/snakeH)
+{	
+snakeY = -1;	
+}
+}
+if(wybor === 3){
+Torus();	
+	
+}
+
+if(wybor === 1 ){
 if(snakeX < 0 || snakeY < 0 || snakeX >= cvsW/snakeW || snakeY >= cvsH/snakeH){
 alert("GAME OVER!");
 location.reload();
 }
+}
+if(wybor === 2 ){
+if(snakeX < 0 || snakeY < 0 || snakeX >= cvsW/snakeW || snakeY >= cvsH/snakeH){
+alert("GAME OVER!");
+location.reload();
+}
+}
 
 
+if(wybor === 1 ){
 if(Kolizja(snakeX,snakeY,snake)){
 alert("GAME OVER!");
 location.reload();
 }
+}
+if(wybor === 3 ){
+if(Kolizja(snakeX,snakeY,snake)){
+alert("GAME OVER!");
+location.reload();
+}
+}
 
+if(wybor === 2){
+jedzOgon(snakeX,snakeY,snake);
+}
 
 if( kierunek === "left"){snakeX -= 1;}
 else if( kierunek === "up"){snakeY -= 1;}
@@ -129,8 +232,8 @@ y: snakeY
 
 if(snakeX === food.x && snakeY === food.y){
 food = {
-x: Math.round(Math.random()*(cvsW/snakeW-1)+1),
-y: Math.round(Math.random()*(cvsH/snakeH-1)+1)
+x: Math.round(Math.random()*((cvsW/snakeW-1)+1)),
+y: Math.round(Math.random()*((cvsH/snakeH-1)+1))
 };
 
 nowaGlowa = {

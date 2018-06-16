@@ -1,4 +1,17 @@
 canvas{
 display: block;
 margin: 0 auto;
+
+}
+button{
+background-color: red; 
+border: 1px solid #000000;
+color: white;
+text-align: center;
+display: inline-block;
+font-size: 30px;
+height:200px;
+width:200px;
+margin:	250px 120px 250px 120px;
+
 }
